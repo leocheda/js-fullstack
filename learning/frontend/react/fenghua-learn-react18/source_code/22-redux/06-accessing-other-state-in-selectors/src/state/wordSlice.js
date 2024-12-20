@@ -1,0 +1,23 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+  English: [
+    { word: "hello", def: "你好", remembered: true },
+    { word: "apple", def: "苹果", remembered: false },
+    { word: "name", def: "名字", remembered: false },
+  ],
+  Spanish: [
+    { word: "hola", def: "你好", remembered: false },
+    { word: "manzana", def: "苹果", remembered: true },
+    { word: "nombre", def: "名字", remembered: true },
+  ],
+};
+
+const wordSlice = createSlice({
+  name: "word",
+  initialState,
+});
+
+export const selectWords = (state) =>
+  state.word[state.settings.selectedLanguage];
+export default wordSlice.reducer;

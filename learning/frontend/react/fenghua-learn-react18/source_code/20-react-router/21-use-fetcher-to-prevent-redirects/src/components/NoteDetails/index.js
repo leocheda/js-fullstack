@@ -1,0 +1,44 @@
+import { Form, Link, useFetcher, useLoaderData } from "react-router-dom";
+import "./style.css";
+
+export async function loader({ params }) {
+  return fetch(`/api/notes/${params.noteId}`);
+}
+
+export async function action({ request, params }) {
+  const formData = await request.formData();
+  return fetch(`/api/notes/${params.noteId}`, {
+    method: request.method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      likes: Number(formData.get("likes")) + 1,
+    }),
+  });
+}
+
+function NoteDetails() {
+  const note = useLoaderData();
+  const fetcher = useFetcher();
+
+  return (
+    <div>
+      <h2 className="noteTitle">{note.title}</h2>
+      <div className="noteActions">
+        <Link to="edit">编辑</Link>
+        <Form action="delete" method="DELETE">
+          <button type="submit">删除</button>
+        </Form>
+        <fetcher.Form method="PUT">
+          <button name="likes" type="submit" value={note.likes}>
+            点赞 {note.likes}
+          </button>
+        </fetcher.Form>
+      </div>
+      <article>{note.content}</article>
+    </div>
+  );
+}
+
+export default NoteDetails;

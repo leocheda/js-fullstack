@@ -1,0 +1,32 @@
+.container {
+  margin: 0 auto;
+  display: grid;
+  place-content: center;
+  gap: 12px;
+  height: 100vh;
+  background-color: hsl(220, 33%, 15%);
+  color: rgb(0, 217, 255);
+  font-weight: 800;
+}
+
+.container > div {
+  display: grid;
+  gap: 12px;
+  align-items: center;
+}
+
+.link {
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
