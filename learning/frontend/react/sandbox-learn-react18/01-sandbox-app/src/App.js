@@ -10,6 +10,7 @@
 //  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // * 示例钩子函数
 // * import { useState, useEffect } from "react"
+import { useState } from "react";
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 // 常量数据/工具函数 -- 写在这里
@@ -21,6 +22,25 @@
 // * function formatDate(date) {
 // *  return date.toLocaleDateString();
 // * }
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+// 子组件 -- 写在这里
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// * 示例子组件
+// * function ChildComponent() {
+// *  return <p>子组件内容</p>
+// * }
+
+const ChildComponent = ({onReceiveChildMsg}) => {
+  const childMsg = '爸爸'
+  return (
+    <div>
+      **这是子组件
+      <button onClick={()=>onReceiveChildMsg(childMsg)}>点击发送子组件信息</button>
+    </div>
+  )
+}
+
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 // 项目的根组件(一切组件的根基)
@@ -40,6 +60,10 @@ function App() {
   // * console.log("组件挂载或更新");
   // * }, [count]);
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  const [newMsg, setNewMsg] = useState('');
+  const receiveChildMsg = (msg) => {
+    setNewMsg(msg)
+  }
 
   return (
     <div className="App">
@@ -51,7 +75,8 @@ function App() {
       {/* 示例根组件代码 */}
       {/* <p>计数值：{count}</p>
       <button onClick={handleClick}>增加计数</button> */}
-      
+      *这是父组件, 接收子组件内容为: __{newMsg}__
+      <ChildComponent onReceiveChildMsg = {receiveChildMsg}/>
       {/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */}
     </div>
   );
